@@ -2,10 +2,10 @@ obs-studio-master-new 		源码目录
 obs-sudio-build 			编译目录
 win32 obs-studio 			依赖目录 32位
 win64 obs-studio 			依赖目录 64位
-ActivePerl5.26.1.2601.zip 		perl
-python-2.7.5.amd64.msi 		python
-rubyinstaller-devkit-2.5.3-1-x64.exe 	ruby
-Qt 5.15.2 				采用在线安装方式(安装msvc 64位)
+ActivePerl5.26.1.2601.zip 	perl;可选
+python-2.7.5.amd64.msi 		python;可选;obs studio 支持python 脚本
+rubyinstaller-devkit-2.5.3-1-x64.exe 	ruby;可选
+Qt 5.15.2 	采用在线安装方式(安装msvc 64位)
 
 
 
