@@ -123,7 +123,7 @@ static inline bool video_output_cur_frame(struct video_output *video)
 	bool skipped;
 
 	/* -------------------------------- */
-
+	// 获取缓冲帧
 	pthread_mutex_lock(&video->data_mutex);
 
 	frame_info = &video->cache[video->first_added];
@@ -131,7 +131,7 @@ static inline bool video_output_cur_frame(struct video_output *video)
 	pthread_mutex_unlock(&video->data_mutex);
 
 	/* -------------------------------- */
-
+	// 
 	pthread_mutex_lock(&video->input_mutex);
 
 	for (size_t i = 0; i < video->inputs.num; i++) {
@@ -244,7 +244,7 @@ int video_output_open(video_t **video, struct video_output_info *info)
 		goto fail;
 	if (os_sem_init(&out->update_semaphore, 0) != 0)
 		goto fail;
-	if (pthread_create(&out->thread, NULL, video_thread, out) != 0)
+	if (pthread_create(&out->thread, NULL, video_thread, out) != 0)// 启动视频编码线程
 		goto fail;
 
 	init_cache(out);

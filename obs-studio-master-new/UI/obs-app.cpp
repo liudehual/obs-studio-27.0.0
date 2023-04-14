@@ -1356,6 +1356,7 @@ bool OBSApp::OBSInit()
 	qRegisterMetaType<VoidFunc>();
 
 #if !defined(_WIN32) && !defined(__APPLE__)
+	// 设置针对X11的Qt参数
 	obs_set_nix_platform(OBS_NIX_PLATFORM_X11_GLX);
 	if (QApplication::platformName() == "xcb") {
 		if (getenv("OBS_USE_EGL")) {
@@ -1382,10 +1383,11 @@ bool OBSApp::OBSInit()
 	// 设置核心库初始化成功标志位
 	libobs_initialized = true;
 
-	//
+	// 注册一些任务处理
 	obs_set_ui_task_handler(ui_task_handler);
 
 #if defined(_WIN32) || defined(__APPLE__)
+	// 设置针对Windows和Mac系统相关参数
 	bool browserHWAccel = config_get_bool(globalConfig, "General", "BrowserHWAccel");
 
 	obs_data_t *settings = obs_data_create();
@@ -1409,7 +1411,7 @@ bool OBSApp::OBSInit()
 	//窗口设置了Qt::WA_DeleteOnClose 这个属性，在窗口接受了关闭事件后，Qt会释放这个窗口所占用的资源。
 	mainWindow->setAttribute(Qt::WA_DeleteOnClose, true);
 
-	// 收到destroyed信号，直接推出
+	// 收到destroyed信号，直接退出
 	connect(mainWindow, SIGNAL(destroyed()), this, SLOT(quit()));
 
 	// 初始化界面

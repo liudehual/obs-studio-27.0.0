@@ -184,9 +184,10 @@ bool mp_decode_init(mp_media_t *m, enum AVMediaType type, bool hw)
 			     av_get_media_type_string(type));
 			return false;
 		}
-
+		// in_frame 指向硬件解码帧数据
 		d->in_frame = d->hw_frame;
 	} else {
+		// in_frame 指向软件解码帧
 		d->in_frame = d->sw_frame;
 	}
 
@@ -244,8 +245,7 @@ void mp_decode_push_packet(struct mp_decode *decode, AVPacket *packet)
 	circlebuf_push_back(&decode->packets, packet, sizeof(*packet));
 }
 
-static inline int64_t get_estimated_duration(struct mp_decode *d,
-					     int64_t last_pts)
+static inline int64_t get_estimated_duration(struct mp_decode *d,int64_t last_pts)
 {
 	if (d->audio) {
 		return av_rescale_q(d->in_frame->nb_samples,(AVRational){1, d->in_frame->sample_rate},(AVRational){1, 1000000000});

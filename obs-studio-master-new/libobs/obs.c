@@ -387,7 +387,7 @@ static int obs_init_video(struct obs_video_info *ovi)
 	struct video_output_info vi;
 	pthread_mutexattr_t attr;
 	int errorcode;
-
+	// 记录一些基本信息(宽高,开启GPU转换等)
 	make_video_info(&vi, ovi);
 	video->base_width = ovi->base_width;
 	video->base_height = ovi->base_height;
@@ -579,7 +579,7 @@ static bool obs_init_audio(struct audio_output_info *ai)
 		return false;
 	if (pthread_mutex_init(&audio->monitoring_mutex, &attr) != 0)
 		return false;
-
+	
 	audio->user_volume = 1.0f;
 
 	audio->monitoring_device_name = bstrdup("Default");
@@ -626,25 +626,35 @@ static bool obs_init_data(void)
 
 	if (pthread_mutexattr_init(&attr) != 0)
 		return false;
+
 	if (pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_RECURSIVE) != 0)
 		goto fail;
+
 	if (pthread_mutex_init(&data->sources_mutex, &attr) != 0)
 		goto fail;
+
 	if (pthread_mutex_init(&data->audio_sources_mutex, &attr) != 0)
 		goto fail;
+
 	if (pthread_mutex_init(&data->displays_mutex, &attr) != 0)
 		goto fail;
+
 	if (pthread_mutex_init(&data->outputs_mutex, &attr) != 0)
 		goto fail;
+
 	if (pthread_mutex_init(&data->encoders_mutex, &attr) != 0)
 		goto fail;
+
 	if (pthread_mutex_init(&data->services_mutex, &attr) != 0)
 		goto fail;
+
 	if (pthread_mutex_init(&obs->data.draw_callbacks_mutex, &attr) != 0)
 		goto fail;
+		
 	if (!obs_view_init(&data->main_view))
 		goto fail;
-
+		
+	// 创建私有数据
 	data->private_data = obs_data_create();
 	data->valid = true;
 
@@ -742,7 +752,7 @@ static inline bool obs_init_handlers(void)
 	if (!obs->procs)
 		return false;
 
-	return signal_handler_add_array(obs->signals, obs_signals);
+	return signal_handler_add_array(obs->signals, obs_signals);// 注册obs 全局信号
 }
 
 static pthread_once_t obs_pthread_once_init_token = PTHREAD_ONCE_INIT;
@@ -776,7 +786,7 @@ static inline bool obs_init_hotkeys(void)
 
 	if (os_event_init(&hotkeys->stop_event, OS_EVENT_TYPE_MANUAL) != 0)
 		goto fail;
-	if (pthread_create(&hotkeys->hotkey_thread, NULL, obs_hotkey_thread,NULL))
+	if (pthread_create(&hotkeys->hotkey_thread, NULL, obs_hotkey_thread,NULL))//启动快捷键检测线程
 		goto fail;
 
 	hotkeys->hotkey_thread_initialized = true;
@@ -841,6 +851,7 @@ extern void log_system_info(void);
 
 static bool obs_init(const char *locale, const char *module_config_path,profiler_name_store_t *store)
 {
+	
 	obs = bzalloc(sizeof(struct obs_core));
 
 	pthread_mutex_init_value(&obs->audio.monitoring_mutex);
@@ -857,19 +868,31 @@ static bool obs_init(const char *locale, const char *module_config_path,profiler
 	//加载一些系统信息
 	log_system_info();
 
+	// 初始化obs一些全局锁及私有数据等
 	if (!obs_init_data())
 		return false;
+	// 初始化obs信号
 	if (!obs_init_handlers())
 		return false;
+	// 初始化快捷键相关，初始化锁/启动快捷键线程等
 	if (!obs_init_hotkeys())
 		return false;
 
 	if (module_config_path)
 		obs->module_config_path = bstrdup(module_config_path);
+
+	// 加载本地化信息
 	obs->locale = bstrdup(locale);
+
+	// 注册场景
 	obs_register_source(&scene_info);
+
+	// 注册组
 	obs_register_source(&group_info);
+
+	// 注册音频线组
 	obs_register_source(&audio_line_info);
+	
 	add_default_module_paths();
 	return true;
 }
@@ -1126,6 +1149,7 @@ int obs_reset_video(struct obs_video_info *ovi)
 	ovi->output_width &= 0xFFFFFFFC;
 	ovi->output_height &= 0xFFFFFFFE;
 
+	// 初始化渲染子系统
 	if (!video->graphics) {
 		int errorcode = obs_init_graphics(ovi);
 		if (errorcode != OBS_VIDEO_SUCCESS) {
@@ -1133,7 +1157,7 @@ int obs_reset_video(struct obs_video_info *ovi)
 			return errorcode;
 		}
 	}
-
+	// 缩放方式
 	const char *scale_type_name = "";
 	switch (ovi->scale_type) {
 	case OBS_SCALE_DISABLE:
@@ -1155,7 +1179,7 @@ int obs_reset_video(struct obs_video_info *ovi)
 		scale_type_name = "Area";
 		break;
 	}
-
+	// 检测颜色空间
 	bool yuv = format_is_yuv(ovi->output_format);
 	const char *yuv_format = get_video_colorspace_name(ovi->colorspace);
 	const char *yuv_range =	get_video_range_name(ovi->output_format, ovi->range);

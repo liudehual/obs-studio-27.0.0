@@ -140,8 +140,7 @@ static inline bool init_output(media_remux_job_t job, const char *out_filename)
 	return true;
 }
 
-bool media_remux_job_create(media_remux_job_t *job, const char *in_filename,
-			    const char *out_filename)
+bool media_remux_job_create(media_remux_job_t *job, const char *in_filename,const char *out_filename)
 {
 	if (!job)
 		return false;
@@ -179,14 +178,9 @@ fail:
 static inline void process_packet(AVPacket *pkt, AVStream *in_stream,
 				  AVStream *out_stream)
 {
-	pkt->pts = av_rescale_q_rnd(pkt->pts, in_stream->time_base,
-				    out_stream->time_base,
-				    AV_ROUND_NEAR_INF | AV_ROUND_PASS_MINMAX);
-	pkt->dts = av_rescale_q_rnd(pkt->dts, in_stream->time_base,
-				    out_stream->time_base,
-				    AV_ROUND_NEAR_INF | AV_ROUND_PASS_MINMAX);
-	pkt->duration = (int)av_rescale_q(pkt->duration, in_stream->time_base,
-					  out_stream->time_base);
+	pkt->pts = av_rescale_q_rnd(pkt->pts, in_stream->time_base,out_stream->time_base,AV_ROUND_NEAR_INF | AV_ROUND_PASS_MINMAX);
+	pkt->dts = av_rescale_q_rnd(pkt->dts, in_stream->time_base,out_stream->time_base,AV_ROUND_NEAR_INF | AV_ROUND_PASS_MINMAX);
+	pkt->duration = (int)av_rescale_q(pkt->duration, in_stream->time_base,out_stream->time_base);
 	pkt->pos = -1;
 }
 
@@ -237,8 +231,7 @@ static inline int process_packets(media_remux_job_t job,
 	return ret;
 }
 
-bool media_remux_job_process(media_remux_job_t job,
-			     media_remux_progress_callback callback, void *data)
+bool media_remux_job_process(media_remux_job_t job,media_remux_progress_callback callback, void *data)
 {
 	int ret;
 	bool success = false;
