@@ -166,8 +166,7 @@ OBSAdvAudioCtrl::OBSAdvAudioCtrl(QGridLayout *, obs_source_t *source_)
 	syncOffset->setSuffix(" ms");
 	syncOffset->setValue(int(cur_sync / NSEC_PER_MSEC));
 	syncOffset->setFixedWidth(100);
-	syncOffset->setAccessibleName(
-		QTStr("Basic.AdvAudio.SyncOffsetSource").arg(sourceName));
+	syncOffset->setAccessibleName(QTStr("Basic.AdvAudio.SyncOffsetSource").arg(sourceName));
 
 	int idx;
 #if defined(_WIN32) || defined(__APPLE__) || HAVE_PULSEAUDIO
@@ -182,29 +181,22 @@ OBSAdvAudioCtrl::OBSAdvAudioCtrl(QGridLayout *, obs_source_t *source_)
 
 	mixer1->setText("1");
 	mixer1->setChecked(mixers & (1 << 0));
-	mixer1->setAccessibleName(
-		QTStr("Basic.Settings.Output.Adv.Audio.Track1"));
+	mixer1->setAccessibleName(QTStr("Basic.Settings.Output.Adv.Audio.Track1"));
 	mixer2->setText("2");
 	mixer2->setChecked(mixers & (1 << 1));
-	mixer2->setAccessibleName(
-		QTStr("Basic.Settings.Output.Adv.Audio.Track2"));
+	mixer2->setAccessibleName(QTStr("Basic.Settings.Output.Adv.Audio.Track2"));
 	mixer3->setText("3");
 	mixer3->setChecked(mixers & (1 << 2));
-	mixer3->setAccessibleName(
-		QTStr("Basic.Settings.Output.Adv.Audio.Track3"));
+	mixer3->setAccessibleName(QTStr("Basic.Settings.Output.Adv.Audio.Track3"));
 	mixer4->setText("4");
 	mixer4->setChecked(mixers & (1 << 3));
-	mixer4->setAccessibleName(
-		QTStr("Basic.Settings.Output.Adv.Audio.Track4"));
+	mixer4->setAccessibleName(QTStr("Basic.Settings.Output.Adv.Audio.Track4"));
 	mixer5->setText("5");
 	mixer5->setChecked(mixers & (1 << 4));
-	mixer5->setAccessibleName(
-		QTStr("Basic.Settings.Output.Adv.Audio.Track5"));
+	mixer5->setAccessibleName(QTStr("Basic.Settings.Output.Adv.Audio.Track5"));
 	mixer6->setText("6");
 	mixer6->setChecked(mixers & (1 << 5));
-	mixer6->setAccessibleName(
-		QTStr("Basic.Settings.Output.Adv.Audio.Track6"));
-
+	mixer6->setAccessibleName(QTStr("Basic.Settings.Output.Adv.Audio.Track6"));
 	speaker_layout sl = obs_source_get_speaker_layout(source);
 
 	if (sl == SPEAKERS_STEREO) {
@@ -221,33 +213,21 @@ OBSAdvAudioCtrl::OBSAdvAudioCtrl(QGridLayout *, obs_source_t *source_)
 	mixerContainer->layout()->addWidget(mixer5);
 	mixerContainer->layout()->addWidget(mixer6);
 
-	QWidget::connect(volume, SIGNAL(valueChanged(double)), this,
-			 SLOT(volumeChanged(double)));
-	QWidget::connect(percent, SIGNAL(valueChanged(int)), this,
-			 SLOT(percentChanged(int)));
-	QWidget::connect(forceMono, SIGNAL(clicked(bool)), this,
-			 SLOT(downmixMonoChanged(bool)));
-	QWidget::connect(balance, SIGNAL(valueChanged(int)), this,
-			 SLOT(balanceChanged(int)));
-	QWidget::connect(balance, SIGNAL(doubleClicked()), this,
-			 SLOT(ResetBalance()));
-	QWidget::connect(syncOffset, SIGNAL(valueChanged(int)), this,
-			 SLOT(syncOffsetChanged(int)));
+	QWidget::connect(volume, SIGNAL(valueChanged(double)), this,SLOT(volumeChanged(double)));
+	QWidget::connect(percent, SIGNAL(valueChanged(int)), this,SLOT(percentChanged(int)));
+	QWidget::connect(forceMono, SIGNAL(clicked(bool)), this,SLOT(downmixMonoChanged(bool)));
+	QWidget::connect(balance, SIGNAL(valueChanged(int)), this,SLOT(balanceChanged(int)));
+	QWidget::connect(balance, SIGNAL(doubleClicked()), this,SLOT(ResetBalance()));
+	QWidget::connect(syncOffset, SIGNAL(valueChanged(int)), this,SLOT(syncOffsetChanged(int)));
 #if defined(_WIN32) || defined(__APPLE__) || HAVE_PULSEAUDIO
 	QWidget::connect(monitoringType, SIGNAL(currentIndexChanged(int)), this,SLOT(monitoringTypeChanged(int)));
 #endif
-	QWidget::connect(mixer1, SIGNAL(clicked(bool)), this,
-			 SLOT(mixer1Changed(bool)));
-	QWidget::connect(mixer2, SIGNAL(clicked(bool)), this,
-			 SLOT(mixer2Changed(bool)));
-	QWidget::connect(mixer3, SIGNAL(clicked(bool)), this,
-			 SLOT(mixer3Changed(bool)));
-	QWidget::connect(mixer4, SIGNAL(clicked(bool)), this,
-			 SLOT(mixer4Changed(bool)));
-	QWidget::connect(mixer5, SIGNAL(clicked(bool)), this,
-			 SLOT(mixer5Changed(bool)));
-	QWidget::connect(mixer6, SIGNAL(clicked(bool)), this,
-			 SLOT(mixer6Changed(bool)));
+	QWidget::connect(mixer1, SIGNAL(clicked(bool)), this,SLOT(mixer1Changed(bool)));
+	QWidget::connect(mixer2, SIGNAL(clicked(bool)), this,SLOT(mixer2Changed(bool)));
+	QWidget::connect(mixer3, SIGNAL(clicked(bool)), this,SLOT(mixer3Changed(bool)));
+	QWidget::connect(mixer4, SIGNAL(clicked(bool)), this,SLOT(mixer4Changed(bool)));
+	QWidget::connect(mixer5, SIGNAL(clicked(bool)), this,SLOT(mixer5Changed(bool)));
+	QWidget::connect(mixer6, SIGNAL(clicked(bool)), this,SLOT(mixer6Changed(bool)));
 
 	setObjectName(sourceName);
 }
@@ -292,45 +272,38 @@ void OBSAdvAudioCtrl::ShowAudioControl(QGridLayout *layout)
 
 void OBSAdvAudioCtrl::OBSSourceActivated(void *param, calldata_t *calldata)
 {
-	QMetaObject::invokeMethod(reinterpret_cast<OBSAdvAudioCtrl *>(param),
-				  "SourceActiveChanged", Q_ARG(bool, true));
+	QMetaObject::invokeMethod(reinterpret_cast<OBSAdvAudioCtrl *>(param),"SourceActiveChanged", Q_ARG(bool, true));
 	UNUSED_PARAMETER(calldata);
 }
 
 void OBSAdvAudioCtrl::OBSSourceDeactivated(void *param, calldata_t *calldata)
 {
-	QMetaObject::invokeMethod(reinterpret_cast<OBSAdvAudioCtrl *>(param),
-				  "SourceActiveChanged", Q_ARG(bool, false));
+	QMetaObject::invokeMethod(reinterpret_cast<OBSAdvAudioCtrl *>(param),"SourceActiveChanged", Q_ARG(bool, false));
 	UNUSED_PARAMETER(calldata);
 }
 
 void OBSAdvAudioCtrl::OBSSourceFlagsChanged(void *param, calldata_t *calldata)
 {
 	uint32_t flags = (uint32_t)calldata_int(calldata, "flags");
-	QMetaObject::invokeMethod(reinterpret_cast<OBSAdvAudioCtrl *>(param),
-				  "SourceFlagsChanged", Q_ARG(uint32_t, flags));
+	QMetaObject::invokeMethod(reinterpret_cast<OBSAdvAudioCtrl *>(param),"SourceFlagsChanged", Q_ARG(uint32_t, flags));
 }
 
 void OBSAdvAudioCtrl::OBSSourceVolumeChanged(void *param, calldata_t *calldata)
 {
 	float volume = (float)calldata_float(calldata, "volume");
-	QMetaObject::invokeMethod(reinterpret_cast<OBSAdvAudioCtrl *>(param),
-				  "SourceVolumeChanged", Q_ARG(float, volume));
+	QMetaObject::invokeMethod(reinterpret_cast<OBSAdvAudioCtrl *>(param),"SourceVolumeChanged", Q_ARG(float, volume));
 }
 
 void OBSAdvAudioCtrl::OBSSourceSyncChanged(void *param, calldata_t *calldata)
 {
 	int64_t offset = calldata_int(calldata, "offset");
-	QMetaObject::invokeMethod(reinterpret_cast<OBSAdvAudioCtrl *>(param),
-				  "SourceSyncChanged", Q_ARG(int64_t, offset));
+	QMetaObject::invokeMethod(reinterpret_cast<OBSAdvAudioCtrl *>(param),"SourceSyncChanged", Q_ARG(int64_t, offset));
 }
 
 void OBSAdvAudioCtrl::OBSSourceMixersChanged(void *param, calldata_t *calldata)
 {
 	uint32_t mixers = (uint32_t)calldata_int(calldata, "mixers");
-	QMetaObject::invokeMethod(reinterpret_cast<OBSAdvAudioCtrl *>(param),
-				  "SourceMixersChanged",
-				  Q_ARG(uint32_t, mixers));
+	QMetaObject::invokeMethod(reinterpret_cast<OBSAdvAudioCtrl *>(param),"SourceMixersChanged",Q_ARG(uint32_t, mixers));
 }
 
 /* ------------------------------------------------------------------------- */

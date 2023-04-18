@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QProxyStyle>
-
+/////////////////////////////// 风格设置 //////////////////////////////////////////
 class SliderAbsoluteSetStyle : public QProxyStyle {
 public:
 	SliderAbsoluteSetStyle(const QString &baseStyle);

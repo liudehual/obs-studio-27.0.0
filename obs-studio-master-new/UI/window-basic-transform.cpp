@@ -63,8 +63,7 @@ OBSBasicTransform::OBSBasicTransform(OBSBasic *parent)
 
 	ui->buttonBox->button(QDialogButtonBox::Close)->setDefault(true);
 
-	connect(ui->buttonBox->button(QDialogButtonBox::Reset),
-		SIGNAL(clicked()), this, SLOT(on_resetButton_clicked()));
+	connect(ui->buttonBox->button(QDialogButtonBox::Reset),SIGNAL(clicked()), this, SLOT(on_resetButton_clicked()));
 
 	installEventFilter(CreateShortcutFilter());
 
@@ -73,8 +72,7 @@ OBSBasicTransform::OBSBasicTransform(OBSBasic *parent)
 	SetScene(scene);
 	SetItem(item);
 
-	channelChangedSignal.Connect(obs_get_signal_handler(), "channel_change",
-				     OBSChannelChanged, this);
+	channelChangedSignal.Connect(obs_get_signal_handler(), "channel_change",OBSChannelChanged, this);
 }
 
 void OBSBasicTransform::SetScene(OBSScene scene)
@@ -86,24 +84,17 @@ void OBSBasicTransform::SetScene(OBSScene scene)
 
 	if (scene) {
 		OBSSource source = obs_scene_get_source(scene);
-		signal_handler_t *signal =
-			obs_source_get_signal_handler(source);
-
-		transformSignal.Connect(signal, "item_transform",
-					OBSSceneItemTransform, this);
-		removeSignal.Connect(signal, "item_remove", OBSSceneItemRemoved,
-				     this);
-		selectSignal.Connect(signal, "item_select", OBSSceneItemSelect,
-				     this);
-		deselectSignal.Connect(signal, "item_deselect",
-				       OBSSceneItemDeselect, this);
+		signal_handler_t *signal = obs_source_get_signal_handler(source);
+		transformSignal.Connect(signal, "item_transform",OBSSceneItemTransform, this);
+		removeSignal.Connect(signal, "item_remove", OBSSceneItemRemoved,this);
+		selectSignal.Connect(signal, "item_select", OBSSceneItemSelect,this);
+		deselectSignal.Connect(signal, "item_deselect",OBSSceneItemDeselect, this);
 	}
 }
 
 void OBSBasicTransform::SetItem(OBSSceneItem newItem)
 {
-	QMetaObject::invokeMethod(this, "SetItemQt",
-				  Q_ARG(OBSSceneItem, OBSSceneItem(newItem)));
+	QMetaObject::invokeMethod(this, "SetItemQt",Q_ARG(OBSSceneItem, OBSSceneItem(newItem)));
 }
 
 void OBSBasicTransform::SetItemQt(OBSSceneItem newItem)
@@ -117,8 +108,7 @@ void OBSBasicTransform::SetItemQt(OBSSceneItem newItem)
 
 void OBSBasicTransform::OBSChannelChanged(void *param, calldata_t *data)
 {
-	OBSBasicTransform *window =
-		reinterpret_cast<OBSBasicTransform *>(param);
+	OBSBasicTransform *window =	reinterpret_cast<OBSBasicTransform *>(param);
 	uint32_t channel = (uint32_t)calldata_int(data, "channel");
 	OBSSource source = (obs_source_t *)calldata_ptr(data, "source");
 
@@ -135,8 +125,7 @@ void OBSBasicTransform::OBSChannelChanged(void *param, calldata_t *data)
 
 void OBSBasicTransform::OBSSceneItemTransform(void *param, calldata_t *data)
 {
-	OBSBasicTransform *window =
-		reinterpret_cast<OBSBasicTransform *>(param);
+	OBSBasicTransform *window =	reinterpret_cast<OBSBasicTransform *>(param);
 	OBSSceneItem item = (obs_sceneitem_t *)calldata_ptr(data, "item");
 
 	if (item == window->item && !window->ignoreTransformSignal)

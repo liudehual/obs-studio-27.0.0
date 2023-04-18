@@ -20,7 +20,7 @@
 #include <QThread>
 #include <vector>
 #include <string>
-
+////////////////////////////////// 关于面板 获取开发人员列表 ///////////////////////////////////
 class RemoteTextThread : public QThread {
 	Q_OBJECT
 

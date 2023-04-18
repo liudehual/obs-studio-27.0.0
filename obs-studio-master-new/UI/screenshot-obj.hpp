@@ -20,6 +20,7 @@
 #include <thread>
 #include <obs.hpp>
 
+////////////////////////////////// 截图功能 /////////////////////////////////////////
 class ScreenshotObj : public QObject {
 	Q_OBJECT
 

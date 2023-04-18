@@ -4,6 +4,7 @@
 #include <QEvent>
 #include <QItemDelegate>
 
+//////////////////////////////// 场景列表 ////////////////////////////////////////
 class SceneTree : public QListWidget {
 	Q_OBJECT
 	Q_PROPERTY(int gridItemWidth READ GetGridItemWidth WRITE SetGridItemWidth DESIGNABLE true)
