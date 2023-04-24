@@ -965,7 +965,7 @@ private slots:
 	// 视频源下移
 	void on_actionSourceDown_triggered();
 	//场景上移
-	void on_actionMoveUp_triggered();
+	void on_actionMoveUp_triggered();                
 	//场景下移
 	void on_actionMoveDown_triggered();
 	//移至顶层(视频源列表/场景列表 右键菜单->排序->移至顶层)
@@ -974,7 +974,7 @@ private slots:
 	void on_actionMoveToBottom_triggered();
 	//锁定预览
 	void on_actionLockPreview_triggered();
-	// 预览缩放
+	//预览缩放
 	void on_scalingMenu_aboutToShow();
 	//窗口缩放 
 	void on_actionScaleWindow_triggered();

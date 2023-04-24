@@ -41,7 +41,7 @@ enum RemuxEntryState {
 	Error
 };
 Q_DECLARE_METATYPE(RemuxEntryState);
-
+//////////////////////////////////////////// 录像封装转换窗口///////////////////////////////////////////////////
 class OBSRemux : public QDialog {
 	Q_OBJECT
 

@@ -83,6 +83,9 @@ public:
 using OBSFFCodecDesc = std::unique_ptr<const ff_codec_desc, OBSFFDeleter>;
 using OBSFFFormatDesc = std::unique_ptr<const ff_format_desc, OBSFFDeleter>;
 
+/// <summary>
+/// ///////////////////////////////// 设置面板 /////////////////////////////////////////
+/// </summary>
 class OBSBasicSettings : public QDialog {
 	Q_OBJECT
 	Q_PROPERTY(QIcon generalIcon READ GetGeneralIcon WRITE SetGeneralIcon

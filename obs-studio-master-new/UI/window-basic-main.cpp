@@ -6173,17 +6173,13 @@ void OBSBasic::on_streamButton_clicked()
 void OBSBasic::on_recordButton_clicked()
 {
 	if (outputHandler->RecordingActive()) {
-		bool confirm = config_get_bool(GetGlobalConfig(), "BasicWindow",
-					       "WarnBeforeStoppingRecord");
-
+		bool confirm = config_get_bool(GetGlobalConfig(), "BasicWindow", "WarnBeforeStoppingRecord");
 		if (confirm && isVisible()) {
 			QMessageBox::StandardButton button =
-				OBSMessageBox::question(
-					this, QTStr("ConfirmStopRecord.Title"),
-					QTStr("ConfirmStopRecord.Text"),
-					QMessageBox::Yes | QMessageBox::No,
-					QMessageBox::No);
-
+				OBSMessageBox::question(this
+					, QTStr("ConfirmStopRecord.Title")
+					, QTStr("ConfirmStopRecord.Text")
+					, QMessageBox::Yes | QMessageBox::No,QMessageBox::No);
 			if (button == QMessageBox::No) {
 				ui->recordButton->setChecked(true);
 				return;

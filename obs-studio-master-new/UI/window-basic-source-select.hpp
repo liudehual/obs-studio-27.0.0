@@ -23,7 +23,8 @@
 #include "ui_OBSBasicSourceSelect.h"
 
 class OBSBasic;
-
+///////////////////////////// 添加源时弹出窗口 ///////////////////////////////////////
+// 小窗口 新建或添加现有
 class OBSBasicSourceSelect : public QDialog {
 	Q_OBJECT
 

@@ -2,7 +2,9 @@
 
 #include <QThread>
 #include <QString>
-
+/// <summary>
+/// ////////////////////////////// 程序升级更新线程 ////////////////////////////////////////////////
+/// </summary>
 class AutoUpdateThread : public QThread {
 	Q_OBJECT
 

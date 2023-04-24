@@ -7,7 +7,10 @@
 #include <obs.h>
 
 class QLabel;
-
+/// <summary>
+/// ////////////////////////////// 程序主窗口右下角状态条 ////////////////////////////////
+/// 显示CPU使用率/录像状态等
+/// </summary>
 class OBSBasicStatusBar : public QStatusBar {
 	Q_OBJECT
 

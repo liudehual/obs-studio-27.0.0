@@ -26,7 +26,9 @@ class MissingFilesModel;
 
 enum MissingFilesState { Missing, Found, Replaced, Cleared };
 Q_DECLARE_METATYPE(MissingFilesState);
-
+/// <summary>
+/// ///////////////////////////////////////////////////////////// 文件丢失 ///////////////////////////////////////////
+/// </summary>
 class OBSMissingFiles : public QDialog {
 	Q_OBJECT
 	Q_PROPERTY(QIcon warningIcon READ GetWarningIcon WRITE SetWarningIcon

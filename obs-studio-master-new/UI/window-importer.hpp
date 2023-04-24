@@ -25,7 +25,9 @@
 #include "ui_OBSImporter.h"
 
 class ImporterModel;
-
+/////////////////////////////////////////////// 导入窗口 ////////////////////////////////////////////
+// 场景集合-导入
+//// 
 class OBSImporter : public QDialog {
 	Q_OBJECT
 

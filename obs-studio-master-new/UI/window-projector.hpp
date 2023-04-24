@@ -20,7 +20,7 @@ enum class MultiviewLayout : uint8_t {
 	VERTICAL_RIGHT_8_SCENES = 3,
 	HORIZONTAL_TOP_24_SCENES = 4,
 };
-// 投影(显示器，窗口)
+///////////////////////////////////////////////// 投影(显示器，窗口)/////////////////////////////////////////////
 class OBSProjector : public OBSQTDisplay {
 	Q_OBJECT
 

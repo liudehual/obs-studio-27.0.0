@@ -21,7 +21,7 @@
 #include <QDesktopServices>
 #include "window-log-reply.hpp"
 #include "obs-app.hpp"
-
+/////////////////////////////////// 崩溃日志上报 //////////////////////////////////////////
 OBSLogReply::OBSLogReply(QWidget *parent, const QString &url, const bool crash)
 	: QDialog(parent), ui(new Ui::OBSLogReply)
 {
