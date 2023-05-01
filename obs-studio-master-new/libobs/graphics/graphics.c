@@ -1118,8 +1118,7 @@ void gs_viewport_push(void)
 	if (!gs_valid("gs_viewport_push"))
 		return;
 
-	struct gs_rect *rect =
-		da_push_back_new(thread_graphics->viewport_stack);
+	struct gs_rect *rect = da_push_back_new(thread_graphics->viewport_stack);
 	gs_get_viewport(rect);
 }
 

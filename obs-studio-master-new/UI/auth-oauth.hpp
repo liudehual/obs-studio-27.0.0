@@ -7,7 +7,7 @@
 #include "auth-base.hpp"
 
 class QCefWidget;
-
+//////////////////////////////// 身份认证面板 ///////////////////////////////////////////////
 class OAuthLogin : public QDialog {
 	Q_OBJECT
 
@@ -63,7 +63,7 @@ protected:
 		      const std::string &auth_code = std::string(),
 		      bool retry = false);
 };
-
+////////////////////////// 认证流密匙 /////////////////////////////////////////
 class OAuthStreamKey : public OAuth {
 	Q_OBJECT
 

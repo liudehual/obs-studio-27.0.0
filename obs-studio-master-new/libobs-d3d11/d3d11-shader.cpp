@@ -38,8 +38,7 @@ void gs_vertex_shader::GetBuffersExpected(
 	}
 }
 
-gs_vertex_shader::gs_vertex_shader(gs_device_t *device, const char *file,
-				   const char *shaderString)
+gs_vertex_shader::gs_vertex_shader(gs_device_t *device, const char *file,const char *shaderString)
 	: gs_shader(device, gs_type::gs_vertex_shader, GS_SHADER_VERTEX),
 	  hasNormals(false),
 	  hasColors(false),
@@ -82,8 +81,7 @@ gs_vertex_shader::gs_vertex_shader(gs_device_t *device, const char *file,
 	world = gs_shader_get_param_by_name(this, "World");
 }
 
-gs_pixel_shader::gs_pixel_shader(gs_device_t *device, const char *file,
-				 const char *shaderString)
+gs_pixel_shader::gs_pixel_shader(gs_device_t *device, const char *file,const char *shaderString)
 	: gs_shader(device, gs_type::gs_pixel_shader, GS_SHADER_PIXEL)
 {
 	ShaderProcessor processor(device);

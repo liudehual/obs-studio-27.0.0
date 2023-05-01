@@ -2,7 +2,8 @@
 
 #include <QSlider>
 #include <QMouseEvent>
-
+///////////////////////// 滑动条 ///////////////////////////////////////
+// 主要用于高级音频属性面板
 class BalanceSlider : public QSlider {
 	Q_OBJECT
 

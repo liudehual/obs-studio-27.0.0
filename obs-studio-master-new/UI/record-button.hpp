@@ -10,7 +10,7 @@ public:
 
 	virtual void resizeEvent(QResizeEvent *event) override;
 };
-
+//////////////////////////////////////// 回放缓存按钮 /////////////////////////////////////////
 class ReplayBufferButton : public QPushButton {
 	Q_OBJECT
 

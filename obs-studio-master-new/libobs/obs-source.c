@@ -2220,7 +2220,7 @@ static inline void render_video(obs_source_t *source)
 	
 	if (source->filters.num && !source->rendering_filter) // 该源存在滤镜且滤镜不支持渲染
 		obs_source_render_filters(source);
-	else if (source->info.video_render)// 转场/场景进入该函数
+	else if (source->info.video_render)// 转场/场景/组进入该函数
 		obs_source_main_render(source);
 	else if (source->filter_target)//
 		obs_source_video_render(source->filter_target);

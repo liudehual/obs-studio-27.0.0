@@ -1,21 +1,28 @@
 project(libobs)
 
+# 线程包必须存在
 find_package(Threads REQUIRED)
 
+# ffmpeg 编解码包必须存在
 find_package(FFmpeg REQUIRED
 	COMPONENTS avformat avutil swscale swresample
 	OPTIONAL_COMPONENTS avcodec)
+
+#包含ffmpeg 库头文件
 include_directories(${FFMPEG_INCLUDE_DIRS})
 
+#ffmpeg 编解码库路径存在,路径已;间隔
 if (NOT "${FFMPEG_AVCODEC_LIBRARIES}" STREQUAL "")
 	list(REMOVE_ITEM FFMPEG_LIBRARIES ${FFMPEG_AVCODEC_LIBRARIES})
 endif()
 
+#启动ffmpeg 复用器
 if(DEBUG_FFMPEG_MUX)
 	add_definitions(-DSHOW_SUBPROCESSES)
 endif()
-
+#类unix平台,linux 平台
 if(UNIX)
+	#通用linux平台，ubuntu等
 	if (NOT APPLE)
 		find_package(X11 REQUIRED)
 		find_package(X11_XCB REQUIRED)
@@ -28,6 +35,7 @@ if(UNIX)
 		else()
 			set(USE_XINPUT "0")
 		endif()
+		#PulseAudio（以前叫Polypaudio）是一个跨平台的、可通过网络工作的声音服务，其一般使用于Linux和FreeBSD操作系统。它可以用来作为一种简易改进的开放声音后台（ESD）替换。
 		find_package(PulseAudio)
 		if (NOT "${PULSEAUDIO_LIBRARY}" STREQUAL "")
 			message(STATUS "Found PulseAudio - Audio Monitor enabled")
@@ -36,26 +44,34 @@ if(UNIX)
 			set(HAVE_PULSEAUDIO "0")
 		endif()
 	else()
+		#苹果平台
 		set(HAVE_PULSEAUDIO "0")
 		set(USE_XINPUT "0")
 	endif()
+	#查找GIO 包
 	find_package(Gio QUIET)
 else()
+	#非类unix 平台，一般指windows平台,关闭一些windows平台不支持的选项
 	set(HAVE_DBUS "0")
 	set(HAVE_PULSEAUDIO "0")
 	set(USE_XINPUT "0")
 endif()
 
+#查找ImageMagick库,该包非必须，不存在则使用ffmpeg 编解码库
 find_package(ImageMagick QUIET COMPONENTS MagickCore)
 
+#既没有ImageMagick库也没有ffmpeg 库，报错
 if(NOT ImageMagick_MagickCore_FOUND AND NOT FFMPEG_AVCODEC_FOUND)
 	message(FATAL_ERROR "Either MagickCore or Libavcodec is required, but neither were found.")
 elseif(NOT ImageMagick_MagickCore_FOUND AND LIBOBS_PREFER_IMAGEMAGICK)
+	#不存在Imagemagick库，却设置了LIBOBS_PREFER_IMAGEMAGICK变量，报错
 	message(FATAL_ERROR "ImageMagick support was requested, but was not found.")
 endif()
 
+#图像加载首选ImageMagick而非ffmpeg,该选项默认关闭
 option(LIBOBS_PREFER_IMAGEMAGICK "Prefer ImageMagick over ffmpeg for image loading" OFF)
 
+#不存在ffmpeg 库，存在ImageMagick库，使用ImageMagick库
 if(NOT FFMPEG_AVCODEC_FOUND OR (ImageMagick_MagickCore_FOUND AND LIBOBS_PREFER_IMAGEMAGICK))
 	message(STATUS "Using ImageMagick for image loading in libobs")
 
@@ -72,6 +88,7 @@ if(NOT FFMPEG_AVCODEC_FOUND OR (ImageMagick_MagickCore_FOUND AND LIBOBS_PREFER_I
 
 	include_directories(${ImageMagick_INCLUDE_DIRS})
 else()
+	#使用ffmpeg 库
 	message(STATUS "Using libavcodec for image loading in libobs")
 
 	set(libobs_image_loading_SOURCES
@@ -80,23 +97,31 @@ else()
 		${FFMPEG_AVCODEC_LIBRARIES})
 endif()
 
+#zlib 压缩库，必须存在
 find_package(ZLIB REQUIRED)
 
+#包含zlib压缩库头文件
 include_directories(SYSTEM ${ZLIB_INCLUDE_DIRS})
 
+#允许导出函数
 add_definitions(-DLIBOBS_EXPORTS)
 
+#包含Jansson库头文件
 include_directories(${OBS_JANSSON_INCLUDE_DIRS})
 
+#windows 系统
 if(WIN32)
+	#设置模块描述
 	set(MODULE_DESCRIPTION "OBS Library")
-	file(STRINGS obs-config.h _version_parse REGEX "^.*(MAJOR|MINOR|PATCH)_VER[ \t]+[0-9]+[ \t]*$")
 
+	# 设置模块版本
+	file(STRINGS obs-config.h _version_parse REGEX "^.*(MAJOR|MINOR|PATCH)_VER[ \t]+[0-9]+[ \t]*$")
 	string(REGEX REPLACE ".*MAJOR_VER[ \t]+([0-9]+).*" "\\1" UI_VERSION_MAJOR "${_version_parse}")
 	string(REGEX REPLACE ".*MINOR_VER[ \t]+([0-9]+).*" "\\1" UI_VERSION_MINOR "${_version_parse}")
 	string(REGEX REPLACE ".*PATCH_VER[ \t]+([0-9]+).*" "\\1" UI_VERSION_PATCH "${_version_parse}")
 	set(UI_VERSION "${UI_VERSION_MAJOR}.${UI_VERSION_MINOR}.${UI_VERSION_PATCH}")
 
+	#obs-module.rc.in 重命名成libobs.rc，并设置相关变量
 	configure_file(${CMAKE_SOURCE_DIR}/cmake/winrc/obs-module.rc.in libobs.rc)
 	set(libobs_PLATFORM_SOURCES
 		obs-win-crash-handler.c
@@ -126,6 +151,7 @@ if(WIN32)
 		${libobs_PLATFORM_DEPS}
 		w32-pthreads)
 	endif()
+#苹果系统
 elseif(APPLE)
 	set(libobs_PLATFORM_SOURCES
 		obs-cocoa.m
@@ -147,7 +173,7 @@ elseif(APPLE)
 	set_source_files_properties(${libobs_PLATFORM_SOURCES}
 		PROPERTIES
 			COMPILE_FLAGS "-fobjc-arc")
-
+	#加载苹果系统相关的库文件
 	find_library(COCOA Cocoa)
 	mark_as_advanced(COCOA)
 	include_directories(${COCOA})
@@ -184,6 +210,7 @@ elseif(APPLE)
 		${APPKIT}
 		${IOKIT}
 		${CARBON})
+#linux 系统
 elseif(UNIX)
 	set(libobs_PLATFORM_SOURCES
 		obs-nix.c
@@ -279,7 +306,7 @@ if(MSVC)
 	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /EHc-")
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHc-")
 endif()
-
+#obsconfig.h.in 重命名 obsconfig.h
 configure_file(
 	"${CMAKE_CURRENT_SOURCE_DIR}/obsconfig.h.in"
 	"${CMAKE_BINARY_DIR}/config/obsconfig.h")
@@ -488,6 +515,7 @@ set(libobs_HEADERS
 	${libobs_audio_monitoring_HEADERS}
 	)
 
+#归类文件
 source_group("callback\\Source Files" FILES ${libobs_callback_SOURCES})
 source_group("callback\\Header Files" FILES ${libobs_callback_HEADERS})
 source_group("graphics\\Source Files" FILES ${libobs_graphics_SOURCES})
@@ -506,6 +534,7 @@ set(libobs_PLATFORM_DEPS
 	${libobs_PLATFORM_DEPS}
 	caption)
 
+#生成libobs.dll(windows),libobs.so(linux)
 add_library(libobs SHARED ${libobs_SOURCES} ${libobs_HEADERS})
 if(UNIX AND NOT APPLE)
 	set(DEST_DIR "${CMAKE_INSTALL_PREFIX}")
@@ -524,6 +553,7 @@ set_target_properties(libobs PROPERTIES
 	OUTPUT_NAME obs
 	VERSION "0"
 	SOVERSION "0")
+#
 target_compile_definitions(libobs
 	PUBLIC
 		HAVE_OBSCONFIG_H)

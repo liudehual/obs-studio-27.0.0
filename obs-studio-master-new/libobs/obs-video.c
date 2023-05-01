@@ -478,6 +478,7 @@ end:
 static inline void render_video(struct obs_core_video *video, bool raw_active,
 				const bool gpu_active, int cur_texture)
 {
+	//将着色器资源的数组绑定到像素着色器阶段
 	gs_begin_scene();
 
 	gs_enable_depth_test(false);
@@ -509,8 +510,12 @@ static inline void render_video(struct obs_core_video *video, bool raw_active,
 	}
 
 	gs_set_render_target(NULL, NULL);
-	gs_enable_blending(true);
 
+	// D3D 设置标志位，具体功能待研究
+	// OpenGL 设置标志位，具体功能待研究
+	gs_enable_blending(true);
+	
+	// D3D /OpenGL 无任何操作
 	gs_end_scene();
 }
 
@@ -940,9 +945,16 @@ bool obs_graphics_thread_loop(struct obs_graphics_context *context)
 	context->raw_was_active = raw_active;
 	context->was_active = active;
 
-
+	// D3D 无操作
+	// OpenGL 调用wglMakeCurrent，将指定的 OpenGL 呈现上下文作为调用线程的当前呈现上下文,即所有的操作都在当前上下文中操作
 	gs_enter_context(obs->video.graphics);
+
+	// D3D 重置一个标志位，具体功能待研究
+	// OpenGL 无操作
 	gs_begin_frame();
+
+	// D3D 无操作
+	// OpenGL 调用wglMakeCurrent，清空当前上下文
 	gs_leave_context();
 
 	// 获取所有源的数据

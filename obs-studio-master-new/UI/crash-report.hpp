@@ -4,6 +4,7 @@
 
 class QPlainTextEdit;
 
+//////////////////////// 程序崩溃面板 //////////////////////////////
 class OBSCrashReport : public QDialog {
 	Q_OBJECT
 

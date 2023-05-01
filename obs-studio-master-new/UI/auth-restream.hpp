@@ -3,7 +3,7 @@
 #include "auth-oauth.hpp"
 
 class BrowserDock;
-
+///////////////////// Restream.io 认证 ///////////////////////////
 class RestreamAuth : public OAuthStreamKey {
 	Q_OBJECT
 

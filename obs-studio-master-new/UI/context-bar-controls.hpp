@@ -46,7 +46,7 @@ public:
 public slots:
 	void on_refresh_clicked();
 };
-// 
+// 组合选择工具栏
 class ComboSelectToolbar : public SourceToolbar {
 	Q_OBJECT
 
@@ -63,7 +63,7 @@ public:
 public slots:
 	void on_device_currentIndexChanged(int idx);
 };
-
+// 音频采集工具条
 class AudioCaptureToolbar : public ComboSelectToolbar {
 	Q_OBJECT
 
@@ -71,7 +71,7 @@ public:
 	AudioCaptureToolbar(QWidget *parent, OBSSource source);
 	void Init() override;
 };
-
+// 窗口采集工具条
 class WindowCaptureToolbar : public ComboSelectToolbar {
 	Q_OBJECT
 
@@ -79,7 +79,7 @@ public:
 	WindowCaptureToolbar(QWidget *parent, OBSSource source);
 	void Init() override;
 };
-
+// 显示器采集工具条
 class DisplayCaptureToolbar : public ComboSelectToolbar {
 	Q_OBJECT
 
@@ -87,7 +87,7 @@ public:
 	DisplayCaptureToolbar(QWidget *parent, OBSSource source);
 	void Init() override;
 };
-
+// 设备采集工具条
 class DeviceCaptureToolbar : public QWidget {
 	Q_OBJECT
 
@@ -105,7 +105,7 @@ public:
 public slots:
 	void on_activateButton_clicked();
 };
-
+// 游戏窗口源工具条
 class GameCaptureToolbar : public SourceToolbar {
 	Q_OBJECT
 
@@ -121,7 +121,7 @@ public slots:
 	void on_mode_currentIndexChanged(int idx);
 	void on_window_currentIndexChanged(int idx);
 };
-
+// 图片源工具条
 class ImageSourceToolbar : public SourceToolbar {
 	Q_OBJECT
 
@@ -134,7 +134,7 @@ public:
 public slots:
 	void on_browse_clicked();
 };
-
+// 颜色源工具条
 class ColorSourceToolbar : public SourceToolbar {
 	Q_OBJECT
 
@@ -150,7 +150,7 @@ public:
 public slots:
 	void on_choose_clicked();
 };
-
+// 文本源工具条
 class TextSourceToolbar : public SourceToolbar {
 	Q_OBJECT
 

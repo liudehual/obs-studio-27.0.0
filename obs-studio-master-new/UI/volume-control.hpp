@@ -204,6 +204,7 @@ class QLabel;
 class QSlider;
 class MuteCheckBox;
 
+///////////////////// 音频控制条 /////////////////////////////////
 class VolControl : public QWidget {
 	Q_OBJECT
 

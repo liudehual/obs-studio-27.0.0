@@ -8,7 +8,7 @@
 #include "auth-oauth.hpp"
 
 class BrowserDock;
-
+////////////////////////// Twitch 认证 ///////////////////////////////////
 class TwitchAuth : public OAuthStreamKey {
 	Q_OBJECT
 

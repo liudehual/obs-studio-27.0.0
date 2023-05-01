@@ -507,7 +507,11 @@ EXPORT int gs_get_device_type(void);
 EXPORT void gs_enum_adapters(bool (*callback)(void *param, const char *name,uint32_t id),void *param);
 EXPORT int gs_create(graphics_t **graphics, const char *module,uint32_t adapter);
 EXPORT void gs_destroy(graphics_t *graphics);
+// D3D 无操作
+// OpenGL 调用wglMakeCurrent，将指定的 OpenGL 呈现上下文作为调用线程的当前呈现上下文,即所有的操作都在当前上下文中操作
 EXPORT void gs_enter_context(graphics_t *graphics);
+// D3D 无操作
+// OpenGL 调用wglMakeCurrent，清空当前上下文
 EXPORT void gs_leave_context(void);
 EXPORT graphics_t *gs_get_context(void);
 EXPORT void *gs_get_device_obj(void);

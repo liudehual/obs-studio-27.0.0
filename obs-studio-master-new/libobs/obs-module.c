@@ -285,7 +285,7 @@ static void load_all_callback(void *param, const struct obs_module_info *info)
 		     info->bin_path, code);
 		return;
 	}
-	// 调用module->load函数，注册源/过滤器/输出/服务等
+	// 调用module->load函数，注册源/滤镜/输出/服务等
 	obs_init_module(module);
 
 	UNUSED_PARAMETER(param);
