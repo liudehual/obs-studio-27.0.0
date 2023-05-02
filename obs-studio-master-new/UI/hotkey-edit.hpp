@@ -86,6 +86,7 @@ signals:
 	void KeyChanged(obs_key_combination_t);
 };
 
+/////////////////////////////////////////// 设置界面 热键配置页面 //////////////////////////////////////////
 class OBSHotkeyWidget : public QWidget {
 	Q_OBJECT;
 

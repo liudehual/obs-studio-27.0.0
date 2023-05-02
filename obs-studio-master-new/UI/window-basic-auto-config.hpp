@@ -21,6 +21,7 @@ class Ui_AutoConfigTestPage;
 class AutoConfigStreamPage;
 class Auth;
 
+/////////////////////////////// 自动配置面板 //////////////////////////////
 class AutoConfig : public QWizard {
 	Q_OBJECT
 

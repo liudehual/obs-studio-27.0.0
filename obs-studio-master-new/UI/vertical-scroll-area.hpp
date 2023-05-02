@@ -4,6 +4,7 @@
 
 class QResizeEvent;
 
+////////////////////////////////// 自动滚区类 ////////////////////////////////
 class VScrollArea : public QScrollArea {
 	Q_OBJECT
 

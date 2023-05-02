@@ -7,6 +7,7 @@
 extern QCef *cef;
 extern QCefCookieManager *panel_cookies;
 
+////////////////////// 浏览器浮动面板 ///////////////////////
 class BrowserDock : public OBSDock {
 public:
 	inline BrowserDock() : OBSDock() { setAttribute(Qt::WA_NativeWindow); }

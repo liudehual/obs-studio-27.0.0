@@ -10,6 +10,7 @@ class QListWidget;
 class QListWidgetItem;
 class VisibilityCheckBox;
 
+/////////////////////////// 可见性条目部件 ///////////////////////////////////////
 class VisibilityItemWidget : public QWidget {
 	Q_OBJECT
 

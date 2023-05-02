@@ -27,6 +27,7 @@
 class OBSPropertiesView;
 class OBSBasic;
 
+///////////////////////////////////////////// 属性面板 ////////////////////////////
 class OBSBasicProperties : public QDialog {
 	Q_OBJECT
 

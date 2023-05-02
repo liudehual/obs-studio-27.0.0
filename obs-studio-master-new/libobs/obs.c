@@ -101,40 +101,32 @@ static bool obs_init_gpu_conversion(struct obs_video_info *ovi)
 
 #ifdef _WIN32
 	if (video->using_nv12_tex) {
-		gs_texture_create_nv12(&video->convert_textures[0],
-				       &video->convert_textures[1],
+		gs_texture_create_nv12(&video->convert_textures[0],&video->convert_textures[1],
 				       ovi->output_width, ovi->output_height,
 				       GS_RENDER_TARGET | GS_SHARED_KM_TEX);
 	} else {
 #endif
-		video->convert_textures[0] =
-			gs_texture_create(ovi->output_width, ovi->output_height,
+		video->convert_textures[0] = gs_texture_create(ovi->output_width, ovi->output_height,
 					  GS_R8, 1, NULL, GS_RENDER_TARGET);
 
-		const struct video_output_info *info =
-			video_output_get_info(video->video);
+		const struct video_output_info *info =	video_output_get_info(video->video);
 		switch (info->format) {
 		case VIDEO_FORMAT_I420:
-			video->convert_textures[1] = gs_texture_create(
-				ovi->output_width / 2, ovi->output_height / 2,
+			video->convert_textures[1] = gs_texture_create(ovi->output_width / 2, ovi->output_height / 2,
 				GS_R8, 1, NULL, GS_RENDER_TARGET);
-			video->convert_textures[2] = gs_texture_create(
-				ovi->output_width / 2, ovi->output_height / 2,
+			video->convert_textures[2] = gs_texture_create(ovi->output_width / 2, ovi->output_height / 2,
 				GS_R8, 1, NULL, GS_RENDER_TARGET);
 			if (!video->convert_textures[2])
 				return false;
 			break;
 		case VIDEO_FORMAT_NV12:
-			video->convert_textures[1] = gs_texture_create(
-				ovi->output_width / 2, ovi->output_height / 2,
+			video->convert_textures[1] = gs_texture_create(ovi->output_width / 2, ovi->output_height / 2,
 				GS_R8G8, 1, NULL, GS_RENDER_TARGET);
 			break;
 		case VIDEO_FORMAT_I444:
-			video->convert_textures[1] = gs_texture_create(
-				ovi->output_width, ovi->output_height, GS_R8, 1,
+			video->convert_textures[1] = gs_texture_create(ovi->output_width, ovi->output_height, GS_R8, 1,
 				NULL, GS_RENDER_TARGET);
-			video->convert_textures[2] = gs_texture_create(
-				ovi->output_width, ovi->output_height, GS_R8, 1,
+			video->convert_textures[2] = gs_texture_create(ovi->output_width, ovi->output_height, GS_R8, 1,
 				NULL, GS_RENDER_TARGET);
 			if (!video->convert_textures[2])
 				return false;
@@ -333,8 +325,7 @@ static int obs_init_graphics(struct obs_video_info *ovi)
 	point_sampler.max_anisotropy = 1;
 	video->point_sampler = gs_samplerstate_create(&point_sampler);
 
-	obs->video.transparent_texture =
-		gs_texture_create(2, 2, GS_RGBA, 1, &transparent_tex, 0);
+	obs->video.transparent_texture = gs_texture_create(2, 2, GS_RGBA, 1, &transparent_tex, 0);
 
 	if (!video->default_effect)
 		success = false;
@@ -430,8 +421,7 @@ static int obs_init_video(struct obs_video_info *ovi)
 
 	// 启动视频渲染线程
 #ifdef __APPLE__
-	errorcode = pthread_create(&video->video_thread, NULL,
-				   obs_graphics_thread_autorelease, obs);
+	errorcode = pthread_create(&video->video_thread, NULL,obs_graphics_thread_autorelease, obs);
 #else
 	errorcode = pthread_create(&video->video_thread, NULL,obs_graphics_thread, obs);
 #endif
@@ -1179,6 +1169,7 @@ int obs_reset_video(struct obs_video_info *ovi)
 		scale_type_name = "Area";
 		break;
 	}
+	
 	// 检测颜色空间
 	bool yuv = format_is_yuv(ovi->output_format);
 	const char *yuv_format = get_video_colorspace_name(ovi->colorspace);

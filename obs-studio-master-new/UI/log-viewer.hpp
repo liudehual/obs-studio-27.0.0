@@ -3,7 +3,7 @@
 #include <QDialog>
 #include <QTextEdit>
 #include "obs-app.hpp"
-
+/////////////////////////////////// 日志面板 /////////////////////////////////
 class OBSLogViewer : public QDialog {
 	Q_OBJECT
 

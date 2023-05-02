@@ -718,24 +718,16 @@ EXPORT void gs_stencil_op(enum gs_stencil_side side,
 EXPORT void gs_set_viewport(int x, int y, int width, int height);
 EXPORT void gs_get_viewport(struct gs_rect *rect);
 EXPORT void gs_set_scissor_rect(const struct gs_rect *rect);
-
-EXPORT void gs_ortho(float left, float right, float top, float bottom,
-		     float znear, float zfar);
-EXPORT void gs_frustum(float left, float right, float top, float bottom,
-		       float znear, float zfar);
-
+EXPORT void gs_ortho(float left, float right, float top, float bottom, float znear, float zfar);
+EXPORT void gs_frustum(float left, float right, float top, float bottom, float znear, float zfar);
 EXPORT void gs_projection_push(void);
 EXPORT void gs_projection_pop(void);
-
 EXPORT void gs_swapchain_destroy(gs_swapchain_t *swapchain);
-
 EXPORT void gs_texture_destroy(gs_texture_t *tex);
 EXPORT uint32_t gs_texture_get_width(const gs_texture_t *tex);
 EXPORT uint32_t gs_texture_get_height(const gs_texture_t *tex);
-EXPORT enum gs_color_format
-gs_texture_get_color_format(const gs_texture_t *tex);
-EXPORT bool gs_texture_map(gs_texture_t *tex, uint8_t **ptr,
-			   uint32_t *linesize);
+EXPORT enum gs_color_format gs_texture_get_color_format(const gs_texture_t *tex);
+EXPORT bool gs_texture_map(gs_texture_t *tex, uint8_t **ptr,uint32_t *linesize);
 EXPORT void gs_texture_unmap(gs_texture_t *tex);
 /** special-case function (GL only) - specifies whether the texture is a
  * GL_TEXTURE_RECTANGLE type, which doesn't use normalized texture
@@ -746,49 +738,32 @@ EXPORT bool gs_texture_is_rect(const gs_texture_t *tex);
  * For example, for GL, this is a GLuint*.  For D3D11, ID3D11Texture2D*.
  */
 EXPORT void *gs_texture_get_obj(gs_texture_t *tex);
-
 EXPORT void gs_cubetexture_destroy(gs_texture_t *cubetex);
 EXPORT uint32_t gs_cubetexture_get_size(const gs_texture_t *cubetex);
-EXPORT enum gs_color_format
-gs_cubetexture_get_color_format(const gs_texture_t *cubetex);
-
+EXPORT enum gs_color_format gs_cubetexture_get_color_format(const gs_texture_t *cubetex);
 EXPORT void gs_voltexture_destroy(gs_texture_t *voltex);
 EXPORT uint32_t gs_voltexture_get_width(const gs_texture_t *voltex);
 EXPORT uint32_t gs_voltexture_get_height(const gs_texture_t *voltex);
 EXPORT uint32_t gs_voltexture_get_depth(const gs_texture_t *voltex);
-EXPORT enum gs_color_format
-gs_voltexture_get_color_format(const gs_texture_t *voltex);
-
+EXPORT enum gs_color_format gs_voltexture_get_color_format(const gs_texture_t *voltex);
 EXPORT void gs_stagesurface_destroy(gs_stagesurf_t *stagesurf);
 EXPORT uint32_t gs_stagesurface_get_width(const gs_stagesurf_t *stagesurf);
 EXPORT uint32_t gs_stagesurface_get_height(const gs_stagesurf_t *stagesurf);
-EXPORT enum gs_color_format
-gs_stagesurface_get_color_format(const gs_stagesurf_t *stagesurf);
-EXPORT bool gs_stagesurface_map(gs_stagesurf_t *stagesurf, uint8_t **data,
-				uint32_t *linesize);
+EXPORT enum gs_color_format gs_stagesurface_get_color_format(const gs_stagesurf_t *stagesurf);
+EXPORT bool gs_stagesurface_map(gs_stagesurf_t *stagesurf, uint8_t **data,uint32_t *linesize);
 EXPORT void gs_stagesurface_unmap(gs_stagesurf_t *stagesurf);
-
 EXPORT void gs_zstencil_destroy(gs_zstencil_t *zstencil);
-
 EXPORT void gs_samplerstate_destroy(gs_samplerstate_t *samplerstate);
-
 EXPORT void gs_vertexbuffer_destroy(gs_vertbuffer_t *vertbuffer);
 EXPORT void gs_vertexbuffer_flush(gs_vertbuffer_t *vertbuffer);
-EXPORT void gs_vertexbuffer_flush_direct(gs_vertbuffer_t *vertbuffer,
-					 const struct gs_vb_data *data);
-EXPORT struct gs_vb_data *
-gs_vertexbuffer_get_data(const gs_vertbuffer_t *vertbuffer);
-
+EXPORT void gs_vertexbuffer_flush_direct(gs_vertbuffer_t *vertbuffer,	 const struct gs_vb_data *data);
+EXPORT struct gs_vb_data *gs_vertexbuffer_get_data(const gs_vertbuffer_t *vertbuffer);
 EXPORT void gs_indexbuffer_destroy(gs_indexbuffer_t *indexbuffer);
 EXPORT void gs_indexbuffer_flush(gs_indexbuffer_t *indexbuffer);
-EXPORT void gs_indexbuffer_flush_direct(gs_indexbuffer_t *indexbuffer,
-					const void *data);
+EXPORT void gs_indexbuffer_flush_direct(gs_indexbuffer_t *indexbuffer,		const void *data);
 EXPORT void *gs_indexbuffer_get_data(const gs_indexbuffer_t *indexbuffer);
-EXPORT size_t
-gs_indexbuffer_get_num_indices(const gs_indexbuffer_t *indexbuffer);
-EXPORT enum gs_index_type
-gs_indexbuffer_get_type(const gs_indexbuffer_t *indexbuffer);
-
+EXPORT size_t gs_indexbuffer_get_num_indices(const gs_indexbuffer_t *indexbuffer);
+EXPORT enum gs_index_type gs_indexbuffer_get_type(const gs_indexbuffer_t *indexbuffer);
 EXPORT void gs_timer_destroy(gs_timer_t *timer);
 EXPORT void gs_timer_begin(gs_timer_t *timer);
 EXPORT void gs_timer_end(gs_timer_t *timer);
@@ -796,9 +771,7 @@ EXPORT bool gs_timer_get_data(gs_timer_t *timer, uint64_t *ticks);
 EXPORT void gs_timer_range_destroy(gs_timer_range_t *timer);
 EXPORT void gs_timer_range_begin(gs_timer_range_t *range);
 EXPORT void gs_timer_range_end(gs_timer_range_t *range);
-EXPORT bool gs_timer_range_get_data(gs_timer_range_t *range, bool *disjoint,
-				    uint64_t *frequency);
-
+EXPORT bool gs_timer_range_get_data(gs_timer_range_t *range, bool *disjoint,uint64_t *frequency);
 EXPORT bool gs_nv12_available(void);
 
 #define GS_USE_DEBUG_MARKERS 0
@@ -823,8 +796,7 @@ static const float GS_DEBUG_COLOR_CONVERT_FORMAT[] = {0.5f, 0.5f, 0.0f, 1.0f};
 #endif
 
 EXPORT void gs_debug_marker_begin(const float color[4], const char *markername);
-EXPORT void gs_debug_marker_begin_format(const float color[4],
-					 const char *format, ...);
+EXPORT void gs_debug_marker_begin_format(const float color[4],const char *format, ...);
 EXPORT void gs_debug_marker_end(void);
 
 #ifdef __APPLE__

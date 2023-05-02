@@ -549,7 +549,7 @@ static void pulse_update(void *vptr, obs_data_t *settings)
 		data->device = bstrdup(new_device);
 		restart = true;
 	}
-
+	printf("%s:%d; restart %d;\n",__FUNCTION__,__LINE__,restart);
 	if (!restart)
 		return;
 

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QListWidget>
-// 滤镜界面列表
+///////////////////////// 滤镜界面列表 //////////////////////////////
 class FocusList : public QListWidget {
 	Q_OBJECT
 

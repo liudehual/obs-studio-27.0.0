@@ -2195,7 +2195,6 @@ static const char *get_type_format(enum obs_source_type type)
 static inline void render_video(obs_source_t *source)
 {
 	// 视频源调用流程 转场->场景 遍历->其他源
-	
 	// 滤镜
 	if (source->info.type != OBS_SOURCE_TYPE_FILTER && (source->info.output_flags & OBS_SOURCE_VIDEO) == 0) {
 		if (source->filter_parent)

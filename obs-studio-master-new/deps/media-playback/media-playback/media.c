@@ -152,10 +152,7 @@ static int mp_media_next_packet(mp_media_t *media)
 	int ret = av_read_frame(media->fmt, &pkt);
 	if (ret < 0) {
 		if (ret != AVERROR_EOF && ret != AVERROR_EXIT)
-			char sDebug[1024] = {'\0'};
-			snprintf(sDebug, sizeof(sDebug), "%s",av_err2str(ret));
-			blog(LOG_WARNING, "MP: av_read_frame failed: %s (%d)",
-			     sDebug, ret);
+			blog(LOG_WARNING, "MP: av_read_frame failed: (%d)",ret);
 		return ret;
 	}
 
@@ -634,9 +631,13 @@ static bool init_avformat(mp_media_t *m)
 	int ret = avformat_open_input(&m->fmt, m->path, format,opts ? &opts : NULL);
 	av_dict_free(&opts);
 
-	m->fmt->probesize = 64000000;
-	//m->fmt->max_analyze_duration = AV_TIME_BASE;
-	//m->fmt->flags |= AVFMT_FLAG_NOBUFFER;
+	// 添加人:GCT
+	if(m->fmt){
+		m->fmt->probesize = 64000000;
+		m->fmt->max_analyze_duration = AV_TIME_BASE;
+		m->fmt->flags |= AVFMT_FLAG_NOBUFFER;
+	}
+
 
 	if (ret < 0) {
 		if (!m->reconnecting)

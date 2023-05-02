@@ -20,6 +20,7 @@
 #include <memory>
 #include "ui_OBSLogReply.h"
 
+//////////////////// 日志上传成功/失败面板 ///////////////////////////
 class OBSLogReply : public QDialog {
 	Q_OBJECT
 

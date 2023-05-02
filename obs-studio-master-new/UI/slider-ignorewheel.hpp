@@ -18,6 +18,7 @@ protected:
 	virtual void wheelEvent(QWheelEvent *event) override;
 };
 
+////////////////////////////////// 混音器界面 音量滑动条 /////////////////////////////////////
 class VolumeSlider : public SliderIgnoreScroll {
 	Q_OBJECT
 

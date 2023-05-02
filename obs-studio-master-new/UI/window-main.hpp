@@ -4,6 +4,7 @@
 
 #include <util/config-file.h>
 
+//////////////////////////// 主程序面板基类 /////////////////////////////////
 class OBSMainWindow : public QMainWindow {
 	Q_OBJECT
 

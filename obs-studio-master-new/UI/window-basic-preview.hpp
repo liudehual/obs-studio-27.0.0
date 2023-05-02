@@ -31,6 +31,7 @@ enum class ItemHandle : uint32_t {
 	BottomRight = ITEM_BOTTOM | ITEM_RIGHT,
 };
 
+//////////////////////////////////////////// 属性预览 ///////////////////////////////////////////
 class OBSBasicPreview : public OBSQTDisplay {
 	Q_OBJECT
 

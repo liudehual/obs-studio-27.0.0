@@ -10,6 +10,7 @@ class ExtraBrowsersModel;
 
 class QCefWidget;
 
+////////////////////// 附加的浏览器面板////////////////////////////////////
 class OBSExtraBrowsers : public QDialog {
 	Q_OBJECT
 

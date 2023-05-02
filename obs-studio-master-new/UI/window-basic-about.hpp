@@ -5,6 +5,7 @@
 
 #include "ui_OBSAbout.h"
 
+///////////////////////////////// 关于面板 ///////////////////////////////
 class OBSAbout : public QDialog {
 	Q_OBJECT
 

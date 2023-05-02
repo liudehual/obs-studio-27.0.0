@@ -3572,7 +3572,7 @@ void OBSBasic::RenderMain(void *data, uint32_t cx, uint32_t cy)
 
 	window->previewCX = int(window->previewScale * float(ovi.base_width));
 	window->previewCY = int(window->previewScale * float(ovi.base_height));
-
+	
 	gs_viewport_push();
 	gs_projection_push();
 

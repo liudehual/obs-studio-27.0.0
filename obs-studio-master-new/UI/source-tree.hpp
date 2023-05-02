@@ -139,6 +139,7 @@ public:
 	virtual Qt::DropActions supportedDropActions() const override;
 };
 
+////////////////////////////////// 源列表 /////////////////////////////////////////
 class SourceTree : public QListView {
 	Q_OBJECT
 

@@ -29,6 +29,7 @@ class QMenu;
 
 #include "ui_OBSBasicFilters.h"
 
+////////////////////////////// 滤镜界面 ///////////////////////////////////////////
 class OBSBasicFilters : public QDialog {
 	Q_OBJECT
 

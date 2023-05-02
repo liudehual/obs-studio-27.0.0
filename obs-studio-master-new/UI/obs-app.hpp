@@ -68,6 +68,7 @@ public:
 
 typedef std::function<void()> VoidFunc;
 
+/////////////////////////////// 程序主类 ///////////////////////////////////
 class OBSApp : public QApplication {
 	Q_OBJECT
 

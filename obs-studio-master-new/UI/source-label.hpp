@@ -19,7 +19,8 @@
 
 #include <QLabel>
 #include <obs.hpp>
-
+//////////////////////////////// 源标签 //////////////////////////////
+/// 设置界面使用
 class OBSSourceLabel : public QLabel {
 	Q_OBJECT;
 

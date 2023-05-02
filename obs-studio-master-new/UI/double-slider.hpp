@@ -2,7 +2,7 @@
 
 #include <QSlider>
 #include "slider-ignorewheel.hpp"
-
+////////////////////////////////////// 属性界面，添加float 型属性值滑块 /////////////////////////////////////
 class DoubleSlider : public SliderIgnoreScroll {
 	Q_OBJECT
 

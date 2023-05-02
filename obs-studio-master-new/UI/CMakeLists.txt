@@ -11,6 +11,7 @@ if(BROWSER_AVAILABLE_INTERNAL)
 	add_definitions(-DBROWSER_AVAILABLE)
 endif()
 
+#编译obs-frontend-api库
 add_subdirectory(obs-frontend-api)
 
 # ----------------------------------------------------------------------------

@@ -3,7 +3,7 @@
 #include <QScrollArea>
 
 class QResizeEvent;
-// 混音器界面
+/////////////////////////////////// 混音器界面 //////////////////////////////
 class HScrollArea : public QScrollArea {
 	Q_OBJECT
 
