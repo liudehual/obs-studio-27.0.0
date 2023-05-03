@@ -125,10 +125,8 @@ static void luma_key_render_internal(void *data, bool srgb)
 
 	gs_effect_set_float(filter->luma_max_param, filter->luma_max);
 	gs_effect_set_float(filter->luma_min_param, filter->luma_min);
-	gs_effect_set_float(filter->luma_max_smooth_param,
-			    filter->luma_max_smooth);
-	gs_effect_set_float(filter->luma_min_smooth_param,
-			    filter->luma_min_smooth);
+	gs_effect_set_float(filter->luma_max_smooth_param,filter->luma_max_smooth);
+	gs_effect_set_float(filter->luma_min_smooth_param,filter->luma_min_smooth);
 
 	const bool previous = gs_set_linear_srgb(srgb);
 	obs_source_process_filter_end(filter->context, filter->effect, 0, 0);
