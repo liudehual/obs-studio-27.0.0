@@ -288,9 +288,7 @@ static inline void ep_init(struct effect_parser *ep)
 }
 
 extern void ep_free(struct effect_parser *ep);
-
-extern bool ep_parse(struct effect_parser *ep, gs_effect_t *effect,
-		     const char *effect_string, const char *file);
+extern bool ep_parse(struct effect_parser *ep, gs_effect_t *effect,const char *effect_string, const char *file);
 
 #ifdef __cplusplus
 }

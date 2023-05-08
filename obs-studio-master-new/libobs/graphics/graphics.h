@@ -322,33 +322,24 @@ enum gs_shader_type {
 };
 
 EXPORT void gs_shader_destroy(gs_shader_t *shader);
-
 EXPORT int gs_shader_get_num_params(const gs_shader_t *shader);
-EXPORT gs_sparam_t *gs_shader_get_param_by_idx(gs_shader_t *shader,
-					       uint32_t param);
-EXPORT gs_sparam_t *gs_shader_get_param_by_name(gs_shader_t *shader,
-						const char *name);
-
+EXPORT gs_sparam_t *gs_shader_get_param_by_idx(gs_shader_t *shader,		       uint32_t param);
+EXPORT gs_sparam_t *gs_shader_get_param_by_name(gs_shader_t *shader,			const char *name);
 EXPORT gs_sparam_t *gs_shader_get_viewproj_matrix(const gs_shader_t *shader);
 EXPORT gs_sparam_t *gs_shader_get_world_matrix(const gs_shader_t *shader);
-
-EXPORT void gs_shader_get_param_info(const gs_sparam_t *param,
-				     struct gs_shader_param_info *info);
+EXPORT void gs_shader_get_param_info(const gs_sparam_t *param,		     struct gs_shader_param_info *info);
 EXPORT void gs_shader_set_bool(gs_sparam_t *param, bool val);
 EXPORT void gs_shader_set_float(gs_sparam_t *param, float val);
 EXPORT void gs_shader_set_int(gs_sparam_t *param, int val);
-EXPORT void gs_shader_set_matrix3(gs_sparam_t *param,
-				  const struct matrix3 *val);
-EXPORT void gs_shader_set_matrix4(gs_sparam_t *param,
-				  const struct matrix4 *val);
+EXPORT void gs_shader_set_matrix3(gs_sparam_t *param,const struct matrix3 *val);
+EXPORT void gs_shader_set_matrix4(gs_sparam_t *param,	  const struct matrix4 *val);
 EXPORT void gs_shader_set_vec2(gs_sparam_t *param, const struct vec2 *val);
 EXPORT void gs_shader_set_vec3(gs_sparam_t *param, const struct vec3 *val);
 EXPORT void gs_shader_set_vec4(gs_sparam_t *param, const struct vec4 *val);
 EXPORT void gs_shader_set_texture(gs_sparam_t *param, gs_texture_t *val);
 EXPORT void gs_shader_set_val(gs_sparam_t *param, const void *val, size_t size);
 EXPORT void gs_shader_set_default(gs_sparam_t *param);
-EXPORT void gs_shader_set_next_sampler(gs_sparam_t *param,
-				       gs_samplerstate_t *sampler);
+EXPORT void gs_shader_set_next_sampler(gs_sparam_t *param,	       gs_samplerstate_t *sampler);
 #endif
 
 /* ---------------------------------------------------
@@ -376,35 +367,21 @@ struct gs_effect_param_info {
 #endif
 
 EXPORT void gs_effect_destroy(gs_effect_t *effect);
-
-EXPORT gs_technique_t *gs_effect_get_technique(const gs_effect_t *effect,
-					       const char *name);
-
-EXPORT gs_technique_t *
-gs_effect_get_current_technique(const gs_effect_t *effect);
-
+EXPORT gs_technique_t *gs_effect_get_technique(const gs_effect_t *effect,const char *name);
+EXPORT gs_technique_t *gs_effect_get_current_technique(const gs_effect_t *effect);
 EXPORT size_t gs_technique_begin(gs_technique_t *technique);
 EXPORT void gs_technique_end(gs_technique_t *technique);
 EXPORT bool gs_technique_begin_pass(gs_technique_t *technique, size_t pass);
-EXPORT bool gs_technique_begin_pass_by_name(gs_technique_t *technique,
-					    const char *name);
+EXPORT bool gs_technique_begin_pass_by_name(gs_technique_t *technique,			    const char *name);
 EXPORT void gs_technique_end_pass(gs_technique_t *technique);
-EXPORT gs_epass_t *gs_technique_get_pass_by_idx(const gs_technique_t *technique,
-						size_t pass);
-EXPORT gs_epass_t *
-gs_technique_get_pass_by_name(const gs_technique_t *technique,
-			      const char *name);
-
+EXPORT gs_epass_t *gs_technique_get_pass_by_idx(const gs_technique_t *technique,size_t pass);
+EXPORT gs_epass_t *gs_technique_get_pass_by_name(const gs_technique_t *technique,const char *name);
 EXPORT size_t gs_effect_get_num_params(const gs_effect_t *effect);
-EXPORT gs_eparam_t *gs_effect_get_param_by_idx(const gs_effect_t *effect,
-					       size_t param);
-EXPORT gs_eparam_t *gs_effect_get_param_by_name(const gs_effect_t *effect,
-						const char *name);
+EXPORT gs_eparam_t *gs_effect_get_param_by_idx(const gs_effect_t *effect,	       size_t param);
+EXPORT gs_eparam_t *gs_effect_get_param_by_name(const gs_effect_t *effect,const char *name);
 EXPORT size_t gs_param_get_num_annotations(const gs_eparam_t *param);
-EXPORT gs_eparam_t *gs_param_get_annotation_by_idx(const gs_eparam_t *param,
-						   size_t annotation);
-EXPORT gs_eparam_t *gs_param_get_annotation_by_name(const gs_eparam_t *param,
-						    const char *name);
+EXPORT gs_eparam_t *gs_param_get_annotation_by_idx(const gs_eparam_t *param,size_t annotation);
+EXPORT gs_eparam_t *gs_param_get_annotation_by_name(const gs_eparam_t *param,		    const char *name);
 
 /** Helper function to simplify effect usage.  Use with a while loop that
  * contains drawing functions.  Automatically handles techniques, passes, and
@@ -418,15 +395,13 @@ EXPORT gs_eparam_t *gs_effect_get_viewproj_matrix(const gs_effect_t *effect);
 EXPORT gs_eparam_t *gs_effect_get_world_matrix(const gs_effect_t *effect);
 
 #ifndef SWIG
-EXPORT void gs_effect_get_param_info(const gs_eparam_t *param,
-				     struct gs_effect_param_info *info);
+EXPORT void gs_effect_get_param_info(const gs_eparam_t *param,struct gs_effect_param_info *info);
 #endif
 
 EXPORT void gs_effect_set_bool(gs_eparam_t *param, bool val);
 EXPORT void gs_effect_set_float(gs_eparam_t *param, float val);
 EXPORT void gs_effect_set_int(gs_eparam_t *param, int val);
-EXPORT void gs_effect_set_matrix4(gs_eparam_t *param,
-				  const struct matrix4 *val);
+EXPORT void gs_effect_set_matrix4(gs_eparam_t *param,const struct matrix4 *val);
 EXPORT void gs_effect_set_vec2(gs_eparam_t *param, const struct vec2 *val);
 EXPORT void gs_effect_set_vec3(gs_eparam_t *param, const struct vec3 *val);
 EXPORT void gs_effect_set_vec4(gs_eparam_t *param, const struct vec4 *val);
@@ -438,9 +413,7 @@ EXPORT size_t gs_effect_get_val_size(gs_eparam_t *param);
 EXPORT void *gs_effect_get_val(gs_eparam_t *param);
 EXPORT size_t gs_effect_get_default_val_size(gs_eparam_t *param);
 EXPORT void *gs_effect_get_default_val(gs_eparam_t *param);
-EXPORT void gs_effect_set_next_sampler(gs_eparam_t *param,
-				       gs_samplerstate_t *sampler);
-
+EXPORT void gs_effect_set_next_sampler(gs_eparam_t *param,       gs_samplerstate_t *sampler);
 EXPORT void gs_effect_set_color(gs_eparam_t *param, uint32_t argb);
 
 /* ---------------------------------------------------

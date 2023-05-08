@@ -115,9 +115,7 @@ fail:
 	return false;
 }
 
-static bool ffmpeg_image_reformat_frame(struct ffmpeg_image *info,
-					AVFrame *frame, uint8_t *out,
-					int linesize)
+static bool ffmpeg_image_reformat_frame(struct ffmpeg_image *info,AVFrame *frame, uint8_t *out,int linesize)
 {
 	struct SwsContext *sws_ctx = NULL;
 	int ret = 0;
@@ -188,8 +186,7 @@ static bool ffmpeg_image_reformat_frame(struct ffmpeg_image *info,
 	return true;
 }
 
-static bool ffmpeg_image_decode(struct ffmpeg_image *info, uint8_t *out,
-				int linesize)
+static bool ffmpeg_image_decode(struct ffmpeg_image *info, uint8_t *out,int linesize)
 {
 	AVPacket packet = {0};
 	bool success = false;
@@ -262,9 +259,7 @@ static inline enum gs_color_format convert_format(enum AVPixelFormat format)
 	return GS_BGRX;
 }
 
-uint8_t *gs_create_texture_file_data(const char *file,
-				     enum gs_color_format *format,
-				     uint32_t *cx_out, uint32_t *cy_out)
+uint8_t *gs_create_texture_file_data(const char *file,	     enum gs_color_format *format,uint32_t *cx_out, uint32_t *cy_out)
 {
 	struct ffmpeg_image image;
 	uint8_t *data = NULL;
